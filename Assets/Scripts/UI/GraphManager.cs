@@ -28,7 +28,6 @@ public class GraphManager : MonoBehaviour
             // Проверяем, прошло ли уже 7 секунд с момента начала записи
             if (Time.time - recordingStartTime < 7f)
             {
-                Debug.Log("Запись нельзя остановить раньше, чем через 7 секунд после начала.");
                 return;
             }
 
@@ -50,6 +49,7 @@ public class GraphManager : MonoBehaviour
             StartCoroutine(RecordData());
         }
     }
+
     private IEnumerator RecordData()
     {
         while (isRecording)

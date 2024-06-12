@@ -7,7 +7,10 @@ using UnityEngine.Serialization;
 public class ButtonOnHover : MonoBehaviour
 {
     [SerializeField] private UnityEngine.UI.Button button;
-    [FormerlySerializedAs("button_text")] [SerializeField] private TMP_Text buttonText;
+
+    [FormerlySerializedAs("button_text")] [SerializeField]
+    private TMP_Text buttonText;
+
     public void IsobaricHover()
     {
         MenuBehaviour.Hovered = buttonText.text;
@@ -21,17 +24,5 @@ public class ButtonOnHover : MonoBehaviour
         ColorUtility.TryParseHtmlString("#313244", out var blekuha);
         button.image.fillCenter = true;
         buttonText.color = blekuha;
-
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

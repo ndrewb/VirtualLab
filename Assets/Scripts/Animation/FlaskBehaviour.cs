@@ -38,7 +38,9 @@ public class VolumeController : MonoBehaviour
         else
         {
             // Плавно обновляем текущий объем до целевого значения
-            currentVolume = Mathf.Lerp((float)currentVolume, (float)targetVolume, Time.deltaTime * 5); // 5 - скорость изменения объема
+            currentVolume =
+                Mathf.Lerp((float)currentVolume, (float)targetVolume,
+                    Time.deltaTime * 5); // 5 - скорость изменения объема
         }
 
         // Устанавливаем анимацию в соответствии с текущим объемом
@@ -57,7 +59,7 @@ public class VolumeController : MonoBehaviour
 
         // Вычисляем текущий кадр
         float frameProgress = (float)volume / 6f;
-        
+
         // Устанавливаем текущий кадр в аниматоре, используя нормализованное время
         animatorComponent.Play(animationName, 0, frameProgress);
         animatorComponent.speed = 0; // Останавливаем анимацию, чтобы она не проигрывалась автоматически

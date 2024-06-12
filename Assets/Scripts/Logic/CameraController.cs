@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -15,13 +14,13 @@ public class CameraController : MonoBehaviour
         StartCoroutine(MoveCameraToSetupCoroutine(cameraMenuPos, transitionTime));
         RotateCameraBackToZero();
     }
-    
+
     public void MoveCameraToLab()
     {
         // Запускаем корутину перемещения камеры
         StartCoroutine(MoveCameraToSetupCoroutine(cameraLabPos, transitionTime));
     }
-    
+
     public void RotateCameraBy90Degrees()
     {
         // Поворачиваем камеру на 90 градусов по оси Y
@@ -35,7 +34,7 @@ public class CameraController : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0, 0, 0);
         StartCoroutine(RotateCameraCoroutine(targetRotation, rotationTime));
     }
-    
+
     IEnumerator MoveCameraToSetupCoroutine(Vector3 targetPosition, float duration)
     {
         Vector3 startingPosition = transform.position; // Текущая позиция камеры

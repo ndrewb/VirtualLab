@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +9,7 @@ public class TorchElectricBehaviour : MonoBehaviour
     public AudioSource torchSound;
     [SerializeField] public Color restoredColor;
     public Slider _slider;
+
     public void ExternalShutdown()
     {
         torchSound.Stop();
@@ -21,23 +18,23 @@ public class TorchElectricBehaviour : MonoBehaviour
         _slider.value = 0f;
     }
 
-    
+
     public void ChangeColor(float temp)
     {
         if (temp > 5)
         {
             Color newColor = restoredColor;
-            newColor.b = restoredColor.b - temp/100;
-            newColor.g = restoredColor.g - temp/100;
-            gameObject.GetComponent<Renderer> ().material.color = newColor;
+            newColor.b = restoredColor.b - temp / 100;
+            newColor.g = restoredColor.g - temp / 100;
+            gameObject.GetComponent<Renderer>().material.color = newColor;
             //myRenderer.material.SetColor("newColor",newColor);
         }
         else if (temp < 5)
         {
             Color newColor = restoredColor;
-            newColor.r = restoredColor.r + temp/100;
-            newColor.g = restoredColor.g + temp/100;
-            gameObject.GetComponent<Renderer> ().material.color = newColor;
+            newColor.r = restoredColor.r + temp / 100;
+            newColor.g = restoredColor.g + temp / 100;
+            gameObject.GetComponent<Renderer>().material.color = newColor;
             //myRenderer.material.SetColor("newColor",newColor);
         }
         else
@@ -46,8 +43,8 @@ public class TorchElectricBehaviour : MonoBehaviour
             myRenderer.material.SetColor("defaultColor", restoredColor);
         }
     }
-    
-    
+
+
     public void Start()
     {
         var meshRenderer = GetComponent<Renderer>();
@@ -61,6 +58,7 @@ public class TorchElectricBehaviour : MonoBehaviour
             torchSound.Play();
         }
     }
+
     public void Temperature(float temp)
     {
         temperature = temp;
@@ -73,7 +71,7 @@ public class TorchElectricBehaviour : MonoBehaviour
             SceneBehaviour.customTempIncreaseValue = 0f;
         }
 
-        torchSound.volume = math.abs(temp/2000f);
+        torchSound.volume = math.abs(temp / 2000f);
         ChangeColor(temp);
     }
 
@@ -93,5 +91,4 @@ public class TorchElectricBehaviour : MonoBehaviour
     {
         SoundPlayer();
     }
-
 }

@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class ThermometerController : MonoBehaviour
 {
@@ -12,17 +10,10 @@ public class ThermometerController : MonoBehaviour
         if (animatorComponent == null)
             animatorComponent = GetComponent<Animator>();
     }
-    
-    private void OnMouseDown()
-    {
-        Debug.Log("hello, thermo!");
-    }
-
     void Update()
     {
         SetAnimationToTemperature();
     }
-
     void SetAnimationToTemperature()
     {
         AnimationClip[] clips = animatorComponent.runtimeAnimatorController.animationClips;
@@ -33,13 +24,7 @@ public class ThermometerController : MonoBehaviour
             temperature = 0;
         else if (temperature > 1200)
             temperature = 1200;
-
-        // Вычисляем текущий кадр
-        int currentFrame = (int)((float)(temperature+200)/1200 * totalFrames);
-
-        // Устанавливаем текущий кадр в аниматоре
+        int currentFrame = (int)((float)(temperature + 200) / 1200 * totalFrames);
         animatorComponent.Play(animationName, 0, (float)currentFrame / totalFrames);
     }
-
-
 }

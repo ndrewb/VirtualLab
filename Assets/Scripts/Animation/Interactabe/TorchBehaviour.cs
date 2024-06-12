@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class TorchBehaviour : MonoBehaviour
@@ -23,7 +22,8 @@ public class TorchBehaviour : MonoBehaviour
 
     private void SoundState(bool play)
     {
-        if (play){
+        if (play)
+        {
             torchSound.Play();
         }
         else
@@ -31,5 +31,4 @@ public class TorchBehaviour : MonoBehaviour
             torchSound.Stop();
         }
     }
-    
 }

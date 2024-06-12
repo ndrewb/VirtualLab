@@ -14,7 +14,7 @@ public class UIBehaviour : MonoBehaviour
 
     public TorchBehaviour torch_classic;
     public TorchElectricBehaviour torch_electric;
-    
+
     //Кнопки панели инструментов
     [SerializeField] private Button thermometerButton;
     [SerializeField] private Button thermometerElectricButton;
@@ -23,15 +23,16 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField] private Button torchButton;
     [SerializeField] private Button torchElectricButton;
     [SerializeField] private Button balloonButton;
+
     public void Start()
     {
         balloonButton.onClick.AddListener(ChangeBalloon);
         thermometerButton.onClick.AddListener(ChangeThermometerToClassic);
         thermometerElectricButton.onClick.AddListener(ChangeThermometerToElectric);
-        
+
         manometerElectricButton.onClick.AddListener(ChangeManometerToElectric);
         manometerButton.onClick.AddListener(ChangeManometerToClassic);
-        
+
         torchButton.onClick.AddListener(ChangeTorchToClassic);
         torchElectricButton.onClick.AddListener(ChangeTorchToElectric);
     }
@@ -47,17 +48,19 @@ public class UIBehaviour : MonoBehaviour
         _torchClassic.SetActive(false);
         _torchElectric.SetActive(false);
     }
+
     private void ChangeBalloon()
     {
         _balloonClassic.SetActive(true);
         _depressurizerClassic.SetActive(true);
     }
+
     private void ChangeThermometerToClassic()
     {
         _thermometerElectric.SetActive(false);
         _thermometerClassic.SetActive(true);
     }
-    
+
     private void ChangeThermometerToElectric()
     {
         _thermometerElectric.SetActive(true);
@@ -75,7 +78,7 @@ public class UIBehaviour : MonoBehaviour
         _manometerClassic.SetActive(false);
         _manometerElectric.SetActive(true);
     }
-    
+
     private void ChangeTorchToClassic()
     {
         SceneBehaviour.ElectricTorchActive = false;
@@ -83,7 +86,7 @@ public class UIBehaviour : MonoBehaviour
         _torchClassic.SetActive(true);
         _torchElectric.SetActive(false);
     }
-    
+
     private void ChangeTorchToElectric()
     {
         SceneBehaviour.ElectricTorchActive = true;
@@ -91,5 +94,4 @@ public class UIBehaviour : MonoBehaviour
         _torchClassic.SetActive(false);
         _torchElectric.SetActive(true);
     }
-   
 }

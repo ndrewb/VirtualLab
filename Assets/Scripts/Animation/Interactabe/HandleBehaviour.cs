@@ -5,13 +5,14 @@ using Vector3 = UnityEngine.Vector3;
 public class HandleBehaviour : MonoBehaviour
 {
     public AudioSource snapbackSound;
+
     private void OnMouseDrag()
     {
         SceneBehaviour.ForcedVolumeHold = true;
 
         // Создаем луч из камеры в направлении указателя мыши
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    
+
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
@@ -20,15 +21,16 @@ public class HandleBehaviour : MonoBehaviour
 
             // Применяем ограничения к координате X, как в вашем исходном примере. Y и Z устанавливаем явно.
             objPosition.y = 227.2264f;
-            objPosition.z = 0; // Установите нужное фиксированное значение Z, если объект должен перемещаться в плоскости, отличной от 0
+            objPosition.z =
+                0; // Установите нужное фиксированное значение Z, если объект должен перемещаться в плоскости, отличной от 0
             objPosition.x = Mathf.Clamp(objPosition.x, -48f, 48f);
 
             transform.position = objPosition;
-            
+
             SceneBehaviour.Volume = ((transform.position.x + 48) / 16.0) / 1000;
         }
     }
-    
+
     public float targetVolume = 0.5f; // Начальное значение, можно изменить
     private Vector3 targetPosition;
 
@@ -40,8 +42,10 @@ public class HandleBehaviour : MonoBehaviour
 
     void Update()
     {
-        if(!SceneBehaviour.ForcedVolumeHold && !SceneBehaviour.VolumeFixed)
-            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 5); // 5 - скорость перемещения, можно настроить
+        if (!SceneBehaviour.ForcedVolumeHold && !SceneBehaviour.VolumeFixed)
+            transform.position =
+                Vector3.Lerp(transform.position, targetPosition,
+                    Time.deltaTime * 5); // 5 - скорость перемещения, можно настроить
     }
 
     public void ForceVolume(float volume)
@@ -53,12 +57,12 @@ public class HandleBehaviour : MonoBehaviour
     {
         targetPosition = new Vector3(16000 * volume - 48, 227.2264f, 0);
     }
+
     private void OnMouseUp()
     {
         SceneBehaviour.ForcedVolumeHold = false;
-        
-        if(!SceneBehaviour.VolumeFixed)
+
+        if (!SceneBehaviour.VolumeFixed)
             snapbackSound.Play(0);
     }
-    
 }

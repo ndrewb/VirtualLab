@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GraphRenderer : MonoBehaviour
 {
@@ -30,58 +29,61 @@ public class GraphRenderer : MonoBehaviour
 
     // Функция для отрисовки графика
 // Функция для отрисовки графика с учетом экстремумов по данным Y и X
-public void DrawGraph(List<double> dataListX, List<double> dataListY)
-{
-    ClearGraph(); // Очистка предыдущего графика
-
-    if (dataListX.Count != dataListY.Count || dataListX.Count < 2)
+    public void DrawGraph(List<double> dataListX, List<double> dataListY)
     {
-        Debug.LogError("Lists have different lengths or not enough data");
-        return;
+        ClearGraph(); // Очистка предыдущего графика
+
+        if (dataListX.Count != dataListY.Count || dataListX.Count < 2)
+        {
+            return;
+        }
+
+        // Находим минимальные и максимальные значения по данным Y и X
+        double minYValue = FindMinValue(dataListY);
+        double maxYValue = FindMaxValue(dataListY);
+        double minXValue = FindMinValue(dataListX);
+        double maxXValue = FindMaxValue(dataListX);
+
+        // Преобразование данных в координаты графика с учетом найденных экстремумов
+        List<Vector2> graphCoordinates =
+            TransformDataToGraphCoordinates(dataListX, dataListY, minXValue, maxXValue, minYValue, maxYValue);
+
+        // Рисуем точки на графике
+        foreach (Vector2 point in graphCoordinates)
+        {
+            DrawPoint(point);
+        }
     }
-
-    // Находим минимальные и максимальные значения по данным Y и X
-    double minYValue = FindMinValue(dataListY);
-    double maxYValue = FindMaxValue(dataListY);
-    double minXValue = FindMinValue(dataListX);
-    double maxXValue = FindMaxValue(dataListX);
-
-    // Преобразование данных в координаты графика с учетом найденных экстремумов
-    List<Vector2> graphCoordinates = TransformDataToGraphCoordinates(dataListX, dataListY, minXValue, maxXValue, minYValue, maxYValue);
-
-    // Рисуем точки на графике
-    foreach (Vector2 point in graphCoordinates)
-    {
-        DrawPoint(point);
-    }
-}
 
 // Функция для нахождения минимального значения в списке
-private double FindMinValue(List<double> dataList)
-{
-    double minValue = double.MaxValue;
-    foreach (double value in dataList)
+    private double FindMinValue(List<double> dataList)
     {
-        if (value < minValue)
-            minValue = value;
+        double minValue = double.MaxValue;
+        foreach (double value in dataList)
+        {
+            if (value < minValue)
+                minValue = value;
+        }
+
+        return minValue;
     }
-    return minValue;
-}
 
 // Функция для нахождения максимального значения в списке
-private double FindMaxValue(List<double> dataList)
-{
-    double maxValue = double.MinValue;
-    foreach (double value in dataList)
+    private double FindMaxValue(List<double> dataList)
     {
-        if (value > maxValue)
-            maxValue = value;
+        double maxValue = double.MinValue;
+        foreach (double value in dataList)
+        {
+            if (value > maxValue)
+                maxValue = value;
+        }
+
+        return maxValue;
     }
-    return maxValue;
-}
 
 // Функция преобразования списка значений в координаты для отображения на графике с учетом экстремумов и смещения
-    private List<Vector2> TransformDataToGraphCoordinates(List<double> dataListX, List<double> dataListY, double minXValue, double maxXValue, double minYValue, double maxYValue)
+    private List<Vector2> TransformDataToGraphCoordinates(List<double> dataListX, List<double> dataListY,
+        double minXValue, double maxXValue, double minYValue, double maxYValue)
     {
         List<Vector2> coordinates = new List<Vector2>();
 
@@ -122,25 +124,24 @@ private double FindMaxValue(List<double> dataList)
             {
                 x = 0;
             }
-            
-            
-            
+
+
             if (Mathf.Approximately((float)minYValue, (float)maxYValue))
             {
                 y = 0;
             }
-            
-            
+
+
             if (Mathf.Abs((float)maxXValue - (float)minXValue) < 0.01f * Mathf.Abs((float)maxXValue))
             {
                 x = 0;
             }
-            
+
             if (Mathf.Abs((float)maxYValue - (float)minYValue) < 0.01f * Mathf.Abs((float)maxYValue))
             {
                 y = 0;
             }
-            
+
             x = Mathf.Clamp(x, -graphWidth / 2, graphWidth / 2);
             y = Mathf.Clamp(y, -graphHeight / 2, graphHeight / 2);
 
@@ -149,9 +150,6 @@ private double FindMaxValue(List<double> dataList)
 
         return coordinates;
     }
-
-
-
 
 
     // Функция для рисования точки на графике
@@ -170,6 +168,7 @@ private double FindMaxValue(List<double> dataList)
         {
             Destroy(sphere);
         }
+
         spheres.Clear();
     }
 

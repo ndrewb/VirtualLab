@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -7,7 +6,7 @@ public class DepressurizerBehaviour : MonoBehaviour
     public Material outline;
     public Material outline_off;
     public Shader _outlineShader;
-    public AudioSource gasLeak; 
+    public AudioSource gasLeak;
     [SerializeField] private GameObject Gas;
     public ParticleBehaviour particleBehaviour;
 
@@ -41,7 +40,7 @@ public class DepressurizerBehaviour : MonoBehaviour
         particleBehaviour.DecreaseIntensity();
         if (SceneBehaviour.Mass > 0)
             SceneBehaviour.Mass -= SceneBehaviour.Mass / 200f;
-            //SceneBehaviour.Mass = Mathf.Clamp((float)(SceneBehaviour.Mass - SceneBehaviour.Mass / 130.7004f/2000f - 0.0512f/2000f),0.0001f,6f);
+        //SceneBehaviour.Mass = Mathf.Clamp((float)(SceneBehaviour.Mass - SceneBehaviour.Mass / 130.7004f/2000f - 0.0512f/2000f),0.0001f,6f);
         if (transform.localPosition.z < -0.198f)
             transform.localPosition += new Vector3(0f, 0f, Time.deltaTime);
     }
@@ -53,8 +52,6 @@ public class DepressurizerBehaviour : MonoBehaviour
         particleBehaviour.RestoreIntensity();
         Gas.SetActive(false);
         while (transform.localPosition.z > -0.298f)
-            transform.localPosition -= new Vector3(0f, 0f, Time.deltaTime/60);
+            transform.localPosition -= new Vector3(0f, 0f, Time.deltaTime / 60);
     }
-
-    
 }

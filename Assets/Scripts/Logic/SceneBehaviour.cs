@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SceneBehaviour : MonoBehaviour
@@ -15,23 +13,20 @@ public class SceneBehaviour : MonoBehaviour
     public static double initialTemperature = 79.915341592495;
     public static double initialVolume = 0.001;
     public static double initialMass = 0.001;
-    public static double initialMassMolecular= 0.02897;
+    public static double initialMassMolecular = 0.02897;
     public static double Pressure = 101325;
-    public static double Volume= 0.001;
+    public static double Volume = 0.001;
     public static double Temperature = 79.915341592495;
     public static double GasConstant = 8.314;
     public static float customTempIncreaseValue = 0f;
     public static string GasUsed = "air";
     public static double Mass = 0.001;
-    public static double MassMolecular= 0.02897;
-    
- 
-    
-    
-    
-    private float initialIsochoricEq = (float)initialPressure / ((float)initialTemperature+273.16f);
+    public static double MassMolecular = 0.02897;
+
+
+    private float initialIsochoricEq = (float)initialPressure / ((float)initialTemperature + 273.16f);
     private double _tempIncreaseValue = 0.25;
-    
+
     public bool AreEqual(float a, float b)
     {
         float epsilon = 1e-5f;
@@ -39,20 +34,17 @@ public class SceneBehaviour : MonoBehaviour
     }
     // Update is called once per frame
 
-    
-    
+
     void Update()
     {
-
-        if (!AreEqual(initialIsochoricEq,(float)Pressure/(float)(Temperature+273.16))
-            &&!VolumeFixed 
+        if (!AreEqual(initialIsochoricEq, (float)Pressure / (float)(Temperature + 273.16))
+            && !VolumeFixed
             && !ForcedVolumeHold)
         {
-            
-            Volume = (Temperature + 273.16) * (Mass / MassMolecular) * GasConstant / initialPressure; 
+            Volume = (Temperature + 273.16) * (Mass / MassMolecular) * GasConstant / initialPressure;
             Volume = Mathf.Clamp((float)Volume, 0f, 0.006f);
             handle.ForceVolume((float)Volume);
-            
+
             //Баланс несоблюдён, попытка восстановить условия
         }
 
@@ -68,9 +60,7 @@ public class SceneBehaviour : MonoBehaviour
         }
 
         Temperature = Mathf.Clamp((float)Temperature, -273f, 9999f);
-        Pressure = (Temperature + 273.16) * (Mass / MassMolecular) * GasConstant / Volume; 
-        
-       
+        Pressure = (Temperature + 273.16) * (Mass / MassMolecular) * GasConstant / Volume;
     }
 
     private void Start()

@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class ToolsPanelBehaviour : MonoBehaviour
@@ -9,6 +8,7 @@ public class ToolsPanelBehaviour : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Button buttonCollapse;
 
     [SerializeField] private UnityEngine.UI.Image panel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +26,7 @@ public class ToolsPanelBehaviour : MonoBehaviour
             case "unfolded":
                 buttonCollapse.interactable = false;
                 changingState = true;
-                break;   
+                break;
         }
     }
 
@@ -34,18 +34,18 @@ public class ToolsPanelBehaviour : MonoBehaviour
     {
         var transform1 = panel.transform;
         Vector2 panelPosition = transform1.localPosition;
-        if (panelPosition.x > -605)
+        if (panelPosition.x > -606)
         {
-            _buttonRotation = _buttonRotation - 5.8f;
-            buttonCollapse.transform.rotation = Quaternion.Euler(0,0,_buttonRotation);
+            _buttonRotation = _buttonRotation - 6f;
+            buttonCollapse.transform.rotation = Quaternion.Euler(0, 0, _buttonRotation);
             transform1.localPosition = new Vector2(panelPosition.x - 5, panelPosition.y);
         }
         else
         {
-            buttonCollapse.transform.rotation = Quaternion.Euler(0,0,180);
+            buttonCollapse.transform.rotation = Quaternion.Euler(0, 0, 180);
             changingState = false;
             buttonCollapse.interactable = true;
-            foldingState="folded";
+            foldingState = "folded";
         }
     }
 
@@ -55,16 +55,16 @@ public class ToolsPanelBehaviour : MonoBehaviour
         Vector2 panelPosition = transform1.localPosition;
         if (panelPosition.x < -455)
         {
-            _buttonRotation = _buttonRotation - 5.8f;
-            buttonCollapse.transform.rotation = Quaternion.Euler(0,0,_buttonRotation);
+            _buttonRotation = _buttonRotation - 6f;
+            buttonCollapse.transform.rotation = Quaternion.Euler(0, 0, _buttonRotation);
             transform1.localPosition = new Vector2(panelPosition.x + 5, panelPosition.y);
         }
         else
         {
-            buttonCollapse.transform.rotation = Quaternion.Euler(0,0,0);
+            buttonCollapse.transform.rotation = Quaternion.Euler(0, 0, 0);
             changingState = false;
             buttonCollapse.interactable = true;
-            foldingState="unfolded";
+            foldingState = "unfolded";
         }
     }
 
@@ -79,10 +79,11 @@ public class ToolsPanelBehaviour : MonoBehaviour
                     break;
                 case "unfolded":
                     Fold();
-                    break;   
+                    break;
             }
         }
     }
+
     // Update is called once per frame
     void Update()
     {

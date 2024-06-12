@@ -3,7 +3,6 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -45,7 +44,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void DisplayMode()
     {
-        foreach(ScreenMode screenMode in _screenModes)
+        foreach (ScreenMode screenMode in _screenModes)
         {
             TMP_Dropdown.OptionData option = new();
             option.text = screenMode.Name;
@@ -76,9 +75,9 @@ public class SettingsMenu : MonoBehaviour
 
         return scaledVolume;
     }
+
     public void Sound(float volume)
     {
-        
         _audioMixer.SetFloat("Volume", volume);
         _soundLevel.text = $"{Mathf.Round(ScaleVolume(volume) * 100)}%";
     }
@@ -92,13 +91,15 @@ public class SettingsMenu : MonoBehaviour
     {
         List<Resolution> resolutions = Screen.resolutions.ToList();
 
-        Resolution resolution = resolutions.Find(x => x.ToString() == _displayResolution.options[_displayResolution.value].text);
+        Resolution resolution =
+            resolutions.Find(x => x.ToString() == _displayResolution.options[_displayResolution.value].text);
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode);
     }
 
     public void SaveDisplayMode()
     {
-        FullScreenMode screenMode = _screenModes.Find(x => x.Name == _displayMode.options[_displayMode.value].text).FullScreenMode;
+        FullScreenMode screenMode = _screenModes.Find(x => x.Name == _displayMode.options[_displayMode.value].text)
+            .FullScreenMode;
         Screen.SetResolution(Screen.width, Screen.height, screenMode);
     }
 
@@ -107,10 +108,5 @@ public class SettingsMenu : MonoBehaviour
         settingsCanvas.enabled = false;
         menuCanvas.enabled = true;
     }
-
-/*    private int GetIndexScreenMode()
-    {
-
-        return index;
-    }*/
+    
 }

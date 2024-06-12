@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,21 +6,30 @@ public class MenuBehaviour : MonoBehaviour
 {
     [SerializeField] public Canvas menuCanvas;
     [SerializeField] public Canvas settingsCanvas;
+    [SerializeField] public Canvas manualCanvas;
     [SerializeField] public Button settingsButton;
-    
+
     public float duration = 1f; // Длительность анимации в секундах
-    public float moveDistance = (float)Screen.height*2.0f; // Расстояние, на которое Canvas должен быть перемещён вниз
+    public float moveDistance = (float)Screen.height * 2.0f; // Расстояние, на которое Canvas должен быть перемещён вниз
 
     public void ShowSettings()
     {
         settingsCanvas.enabled = true;
         menuCanvas.enabled = false;
     }
+
+    public void ShowManual()
+    {
+       manualCanvas.enabled = true;
+        menuCanvas.enabled = false;
+    }
+    
     public void HideMenu()
     {
-       moveDistance = (float)Screen.height; // Расстояние, на которое Canvas должен быть перемещён вниз
-    StartCoroutine(HideMenuCoroutine());
+        moveDistance = Screen.height; // Расстояние, на которое Canvas должен быть перемещён вниз
+        StartCoroutine(HideMenuCoroutine());
     }
+
     private IEnumerator HideMenuCoroutine()
     {
         float elapsedTime = 0;
@@ -68,10 +76,11 @@ public class MenuBehaviour : MonoBehaviour
             children[i].position = targetPositions[i];
         }
     }
+
     public void ShowMenu()
     {
         // Аналогично, расстояние, на которое Canvas должен быть перемещён обратно вверх
-        moveDistance = (float)Screen.height; 
+        moveDistance = (float)Screen.height;
         StartCoroutine(ShowMenuCoroutine());
     }
 
@@ -123,23 +132,25 @@ public class MenuBehaviour : MonoBehaviour
     }
 
     public CameraController cameraController;
-    
+
     public Light lightExperimental;
     public Light lightWhiteboard;
-    
+
     [SerializeField] private UnityEngine.UI.Button buttonExperimental;
     [SerializeField] private Canvas labUI;
     [SerializeField] private Canvas menuUI;
     [SerializeField] private Canvas flaskUI;
     [SerializeField] private Canvas submenuUI;
     [SerializeField] private Canvas balloonUI;
+
     public static string Hovered;
+
     // Start is called before the first frame update
     void Start()
     {
         buttonExperimental.onClick.AddListener(ActivateExperimentalLab);
     }
-    
+
     public void DeactivateExperimentalLab()
     {
         ShowMenu();
@@ -152,7 +163,7 @@ public class MenuBehaviour : MonoBehaviour
         flaskUI.enabled = false;
         balloonUI.enabled = false;
     }
-    
+
     public void ActivateExperimentalLab()
     {
         HideMenu();
@@ -163,5 +174,4 @@ public class MenuBehaviour : MonoBehaviour
         labUI.enabled = true;
         submenuUI.enabled = true;
     }
-
 }

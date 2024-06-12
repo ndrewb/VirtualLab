@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -18,11 +17,11 @@ public class ValveBehaviour : MonoBehaviour
     {
         if (rotationSteps <= 60)
         {
-            transform.rotation = Quaternion.Euler(-90f,0f,rotationSteps*rotationAngle);
+            transform.rotation = Quaternion.Euler(-90f, 0f, rotationSteps * rotationAngle);
             rotationSteps += 1;
         }
-        
-        SceneBehaviour.Mass += SceneBehaviour.MassMolecular/1000f;
+
+        SceneBehaviour.Mass += SceneBehaviour.MassMolecular / 1000f;
     }
 
     private void OnMouseUp()
@@ -39,10 +38,10 @@ public class ValveBehaviour : MonoBehaviour
         while (rotationSteps >= 0)
         {
             elapsedTime += Time.deltaTime * returnSpeed;
-            transform.rotation = Quaternion.Slerp(startRotation, Quaternion.Euler(-90f, 0f, rotationSteps * rotationAngle), elapsedTime);
+            transform.rotation = Quaternion.Slerp(startRotation,
+                Quaternion.Euler(-90f, 0f, rotationSteps * rotationAngle), elapsedTime);
             rotationSteps -= 1;
             yield return null;
         }
     }
-    
 }

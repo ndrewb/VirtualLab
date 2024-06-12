@@ -1,13 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ParticleBehaviour : MonoBehaviour
 {
-
     public ParticleSystem _system;
-    
+
     // Start is called before the first frame update
 
     public void ChangeColor(Color color)
@@ -20,17 +16,12 @@ public class ParticleBehaviour : MonoBehaviour
     public void DecreaseIntensity()
     {
         ParticleSystem.MainModule main = GetComponent<ParticleSystem>().main;
-        main.startLifetime =Mathf.Clamp(main.startLifetime.constant - 0.05f,1f,5f);
+        main.startLifetime = Mathf.Clamp(main.startLifetime.constant - 0.05f, 1f, 5f);
     }
-    
+
     public void RestoreIntensity()
     {
         ParticleSystem.MainModule main = GetComponent<ParticleSystem>().main;
         main.startLifetime = 5;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

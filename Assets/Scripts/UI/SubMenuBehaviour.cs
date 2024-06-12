@@ -1,4 +1,3 @@
-
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,19 +20,19 @@ public class SubMenuBehaviour : MonoBehaviour
     [SerializeField] public Image RecorderImage;
     [SerializeField] public Sprite StartRecordingSprite;
     [SerializeField] public Sprite StopRecordingSprite;
-    
+
     [SerializeField] private Button WorkspaceChange;
     [SerializeField] public Image WorkspaceImage;
     [SerializeField] public Sprite LabSprite;
     [SerializeField] public Sprite WhiteboardSprite;
-    
+
     private bool isDeskMode = true;
     private bool isButtonClickable = true;
     private const float buttonCooldown = 0.5f;
-    
+
     private bool isButtonRecordingClickable = true;
     private bool isRecording = false;
-    
+
     private void ChangeRecordingState()
     {
         if (!isButtonRecordingClickable)
@@ -57,14 +56,16 @@ public class SubMenuBehaviour : MonoBehaviour
             isButtonRecordingClickable = false;
             //startrecording
         }
-        
+
         Recorder.OnDeselect(null);
     }
+
     private void EnableRecordButton()
     {
         Recorder.interactable = true;
         isButtonRecordingClickable = true;
     }
+
     private void ChangeWorkspace()
     {
         if (!isButtonClickable)
@@ -81,6 +82,7 @@ public class SubMenuBehaviour : MonoBehaviour
         {
             ToDesk();
         }
+
         WorkspaceChange.OnDeselect(null);
     }
 
@@ -103,6 +105,7 @@ public class SubMenuBehaviour : MonoBehaviour
     {
         isButtonClickable = true;
     }
+
     void Start()
     {
         Recorder.onClick.AddListener(ChangeRecordingState);
@@ -110,7 +113,7 @@ public class SubMenuBehaviour : MonoBehaviour
         backToMenuButton.onClick.AddListener(BackToMenu);
         buttonCollapse.onClick.AddListener(ChangeToolbarState);
     }
-    
+
     private void BackToMenu()
     {
         Fire.SetActive(false);
@@ -127,6 +130,7 @@ public class SubMenuBehaviour : MonoBehaviour
         SceneBehaviour.TorchActive = false;
         SceneBehaviour.VolumeFixed = false;
     }
+
     private void ChangeToolbarState()
     {
         switch (foldingState)
@@ -138,7 +142,7 @@ public class SubMenuBehaviour : MonoBehaviour
             case "unfolded":
                 buttonCollapse.interactable = false;
                 changingState = true;
-                break;   
+                break;
         }
     }
 
@@ -147,35 +151,36 @@ public class SubMenuBehaviour : MonoBehaviour
         float epsilon = 1e-5f;
         return Math.Abs(a - b) < epsilon;
     }
-    
+
     private void Fold()
     {
         var transform1 = panel.transform;
         Vector2 panelPosition = transform1.localPosition;
-        if (panelPosition.y>-324)
+        if (panelPosition.y > -324)
         {
-            transform1.localPosition = new Vector2(panelPosition.x, panelPosition.y-5f);
+            transform1.localPosition = new Vector2(panelPosition.x, panelPosition.y - 5f);
         }
         else
         {
             changingState = false;
             buttonCollapse.interactable = true;
-            foldingState="folded";
+            foldingState = "folded";
         }
     }
+
     private void Unfold()
     {
         var transform1 = panel.transform;
         Vector2 panelPosition = transform1.localPosition;
         if (panelPosition.y < -269)
         {
-            transform1.localPosition = new Vector2(panelPosition.x, panelPosition.y+5f);
+            transform1.localPosition = new Vector2(panelPosition.x, panelPosition.y + 5f);
         }
         else
         {
             changingState = false;
             buttonCollapse.interactable = true;
-            foldingState="unfolded";
+            foldingState = "unfolded";
         }
     }
 
@@ -190,11 +195,11 @@ public class SubMenuBehaviour : MonoBehaviour
                     break;
                 case "unfolded":
                     Fold();
-                    break;   
+                    break;
             }
         }
     }
-    // Update is called once per frame
+
     void Update()
     {
         FoldingController();
