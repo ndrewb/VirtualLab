@@ -18,6 +18,7 @@ public class MenuBehaviour : MonoBehaviour
         menuCanvas.enabled = false;
     }
 
+
     public void ShowManual()
     {
        manualCanvas.enabled = true;
@@ -35,7 +36,7 @@ public class MenuBehaviour : MonoBehaviour
         float elapsedTime = 0;
 
         // Получаем начальные позиции всех дочерних элементов
-        RectTransform[] children = menuUI.GetComponentsInChildren<RectTransform>();
+        RectTransform[] children = menuUI.GetComponentsInChildren<RectTransform>();s
 
         Vector3[] startPositions = new Vector3[children.Length];
         Vector3[] targetPositions = new Vector3[children.Length];
